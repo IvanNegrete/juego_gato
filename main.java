@@ -31,8 +31,9 @@ public class main {
 				}
 			}else {
 				System.out.println("Posiscion invalida");
+				System.out.println("");
 			}
-			if(revisarEmpate()) {
+			if(revisarEmpate() || revisarVictoria()) {
 				volver_a_jugar();
 			}
 		}
@@ -75,7 +76,7 @@ public class main {
 		Scanner leer = new Scanner(System.in);
 		boolean error = true;
 		while(error) {
-			System.out.println("�Desea volver a jugar?");
+			System.out.println("¿Desea volver a jugar?");
 			System.out.println("1.Si  2.No");
 			int seleccion = leer.nextInt();
 			switch(seleccion) {
@@ -92,10 +93,41 @@ public class main {
 				break;
 				default:
 					System.out.println("Opcion no valida");
+					System.out.println("");
 					error = true;
 					break;
 			}
 		}
+	}
+	
+	public static boolean revisarVictoria() {
+		boolean horizontal = false; //revisa que el horizontal sean  iguales los 3 y distintos a 0
+		int ultimoJugado = 4;
+		for(int i = 1; i < tablero.length; i ++) {
+			for(int e = 1; e < tablero[0].length; e ++) {
+				if(tablero[i][1] != 0 && tablero[i][1] == tablero[i][e]) {
+					horizontal = true;
+				}else {
+					horizontal = false;
+				}
+			}
+			if(horizontal) {
+				ultimoJugado = tablero[i][1];
+				i = tablero.length + 1;
+			}
+		}
+		if(horizontal) {
+			pintarTablero();
+			System.out.print("Ganó el jugador ");
+			if(ultimoJugado == 4) {
+				System.out.println("x");
+			}else {
+				System.out.println("o");
+			}
+			System.out.println("");
+			return true;
+		}
+		return false;
 	}
 	
 	public static boolean revisarEmpate() {
@@ -106,6 +138,7 @@ public class main {
 				}
 			}
 		}
+		System.out.println("Hubo un empate");
 		return true;
 	}
 	
