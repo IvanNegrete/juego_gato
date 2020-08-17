@@ -4,12 +4,19 @@ import java.util.Scanner;
 
 public class main {
 
+	static boolean turnoX = true;
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		boolean turnoX = true;
-		boolean victoria = false;
+		//Se determina el jugador que inicia aleatoriamente
+		if((int)(Math.random() * ((2)+1) + 1) == 1) {
+			turnoX = true;
+		}else {
+			turnoX = false;
+		}
 		Scanner leer = new Scanner (System.in);
 		while (true) {
+			//Pide ingresar las coordenadas para colocar la marca
 			System.out.print("Turno de: ");
 			if(turnoX) {
 				System.out.println("x");
@@ -38,7 +45,7 @@ public class main {
 			}
 		}
 	}
- 
+	
 	//se crea el tablero de juego
 	static int tablero [][] = 
 			{{7,1,2,3},
@@ -86,7 +93,13 @@ public class main {
 						tablero[i][e]=0;
 					}
 				}
+				if((Math.random() * ((2-1)+1) + 1) == 1) {
+					turnoX = true;
+				}else {
+					turnoX = false;
+				}
 				error = false;
+				leer.close();
 				break;
 			case 2:
 				System.exit(0);
@@ -95,13 +108,14 @@ public class main {
 					System.out.println("Opcion no valida");
 					System.out.println("");
 					error = true;
+					leer.close();
 					break;
 			}
 		}
 	}
 	
 	public static boolean revisarVictoria() {
-		boolean horizontal = false; //revisa que el horizontal sean  iguales los 3 y distintos a 0
+		boolean horizontal = false, vertical = false, diagonal = false;
 		int ultimoJugado = 4;
 		for(int i = 1; i < tablero.length; i ++) {
 			for(int e = 1; e < tablero[0].length; e ++) {
@@ -110,13 +124,25 @@ public class main {
 				}else {
 					horizontal = false;
 				}
+				if(tablero[1][i] != 0 && tablero[1][i] == tablero[e][i]) {
+					vertical = true;
+				}else {
+					vertical = false;
+				}
 			}
-			if(horizontal) {
+			if(horizontal || vertical) {
 				ultimoJugado = tablero[i][1];
 				i = tablero.length + 1;
 			}
 		}
-		if(horizontal) {
+		for(int i = 1; i < tablero.length; i ++) {
+			if((tablero[1][1] != 0 && tablero[i][i] == tablero[1][1]) || (tablero[3][1] != 0 && tablero[i][tablero.length-i] == tablero[3][1])) {
+				diagonal = true;
+			}else {
+				diagonal = false;
+			}
+		}
+		if(horizontal || vertical || diagonal) {
 			pintarTablero();
 			System.out.print("Ganó el jugador ");
 			if(ultimoJugado == 4) {
