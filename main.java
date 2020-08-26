@@ -46,15 +46,111 @@ public class main {
 	}
 	
 	public static void turnoPC() {
-		boolean ocupado = false;
-		do{
-			int x = (int)(Math.random() * ((3-1)+1) + 1), y = (int)(Math.random() * ((3-1)+1) + 1);
-			if(tablero[x][y] == 0) {
-				tablero[x][y] = 5;
-				ocupado = true;
-				turnoX = true;
+		if(ganaraO() || ganaraX()) {
+			turnoX = true;
+		}else {
+			boolean ocupado = false;
+			do{
+				int x = (int)(Math.random() * ((3-1)+1) + 1), y = (int)(Math.random() * ((3-1)+1) + 1);
+				if(tablero[x][y] == 0) {
+					tablero[x][y] = 5;
+					ocupado = true;
+					turnoX = true;
+				}
+			}while(!ocupado);
+		}
+	}
+	
+	public static boolean ganaraX() {
+		for(int i = 1; i < tablero.length; i ++) {
+			if(tablero[i][3] == 0 && tablero[i][1] == tablero[i][2] && tablero[i][1] == 4) {
+				tablero[i][3] = 5;
+				return true;
+			}else if(tablero[i][2] == 0 && tablero[i][1] == tablero[i][3] && tablero[i][1] == 4) {
+				tablero[i][2] = 5;
+				return true;
+			}else if (tablero[i][1] == 0 && tablero[i][2] == tablero[i][3] && tablero[i][1] == 4){
+				tablero[i][1] = 5;
+				return true;
 			}
-		}while(!ocupado);
+			if(tablero[3][i] == 0 && tablero[1][i] == tablero[2][i] && tablero[1][i] == 4) {
+				tablero[3][i] = 5;
+				return true;
+			}else if(tablero[2][i] == 0 && tablero[1][i] == tablero[3][i] && tablero[1][i] == 4) {
+				tablero[2][i] = 5;
+				return true;
+			}else if (tablero[1][i] == 0 && tablero[2][i] == tablero[3][i] && tablero[2][i] == 4){
+				tablero[1][i] = 5;
+				return true;
+			}
+		}
+		if(tablero[3][3] == 0 && tablero[1][1] == tablero[2][2] && tablero[1][1] == 4){
+			tablero[3][3] = 5;
+			return true;
+		}else if(tablero[2][2] == 0 && tablero[1][1] == tablero[3][3] && tablero[1][1] == 4) {
+			tablero[2][2] = 5;
+			return true;
+		}else if(tablero[1][1] == 0 && tablero[3][3] == tablero[2][2] && tablero[2][2] == 4) {
+			tablero[1][1] = 5;
+			return true;
+		}
+		if(tablero[1][3] == 0 && tablero[3][1] == tablero[2][2] && tablero[3][1] == 4){
+			tablero[1][3] = 5;
+			return true;
+		}else if(tablero[2][2] == 0 && tablero[3][1] == tablero[1][3] && tablero[3][1] == 4) {
+			tablero[2][2] = 5;
+			return true;
+		}else if(tablero[3][1] == 0 && tablero[1][3] == tablero[2][2] && tablero[2][2] == 4) {
+			tablero[3][1] = 5;
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean ganaraO() {
+		for(int i = 1; i < tablero.length; i ++) {
+			if(tablero[i][3] == 0 && tablero[i][1] == tablero[i][2] && tablero[i][1] == 5) {
+				tablero[i][3] = 5;
+				return true;
+			}else if(tablero[i][2] == 0 && tablero[i][1] == tablero[i][3] && tablero[i][1] == 5) {
+				tablero[i][2] = 5;
+				return true;
+			}else if (tablero[i][1] == 0 && tablero[i][2] == tablero[i][3] && tablero[i][2] == 5){
+				tablero[i][1] = 5;
+				return true;
+			}
+			if(tablero[3][i] == 0 && tablero[1][i] == tablero[2][i] && tablero[1][i] == 5) {
+				tablero[3][i] = 5;
+				return true;
+			}else if(tablero[2][i] == 0 && tablero[1][i] == tablero[3][i] && tablero[1][i] == 5) {
+				tablero[2][i] = 5;
+				return true;
+			}else if (tablero[1][i] == 0 && tablero[2][i] == tablero[3][i] && tablero[2][i] == 5){
+				tablero[1][i] = 5;
+				return true;
+			}
+			if(tablero[3][3] == 0 && tablero[1][1] == tablero[2][2] && tablero[1][1] == 5){
+				tablero[3][3] = 5;
+				return true;
+			}else if(tablero[2][2] == 0 && tablero[1][1] == tablero[3][3] && tablero[1][1] == 5) {
+				tablero[2][2] = 5;
+				return true;
+			}else if(tablero[1][1] == 0 && tablero[3][3] == tablero[2][2] && tablero[2][2] == 5) {
+				tablero[1][1] = 5;
+				return true;
+			}
+			if(tablero[1][3] == 0 && tablero[3][1] == tablero[2][2] && tablero[3][1] == 5){
+				tablero[1][3] = 5;
+				return true;
+			}else if(tablero[2][2] == 0 && tablero[3][1] == tablero[1][3] && tablero[3][1] == 5) {
+				tablero[2][2] = 5;
+				return true;
+			}else if(tablero[3][1] == 0 && tablero[1][3] == tablero[2][2] && tablero[2][2] == 5) {
+				tablero[3][1] = 5;
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	//se crea el tablero de juego
@@ -143,6 +239,7 @@ public class main {
 			}
 		}
 		if((tablero[1][1] != 0 && tablero[1][1] == tablero[2][2] && tablero[1][1] == tablero[3][3]) || (tablero[3][1] != 0 && tablero[3][1] == tablero[2][2] && tablero[3][1] == tablero[1][3])) {
+			ultimoJugado = tablero[2][2];
 			diagonal = true;
 		}else {
 			diagonal = false;
